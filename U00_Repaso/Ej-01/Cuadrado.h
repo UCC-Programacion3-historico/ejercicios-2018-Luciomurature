@@ -2,10 +2,10 @@
 #define REPASO_CUADRADO_H
 
 
-class Cuadrado: protected Geometria {
+class Cuadrado: public Geometria {
     public:
-        Cuadrado();
-        Cuadrado(float, float);
+        float getDiagonal();
+        float getSuperficie();
         float getDiagonal();
 };
 

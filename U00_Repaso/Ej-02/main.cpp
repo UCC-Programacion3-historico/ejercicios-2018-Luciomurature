@@ -12,7 +12,11 @@ int main() {
     cout << micalc.multiplicar(3,8) << endl;
     cout << micalcDouble.sumar(0.258963,2.528)<< endl;
     cout << micalcDouble.restar(2.5,3.89665874) << endl;
-    cout << micalcDouble.dividir(15,3) << endl;
+    try{
+        cout << micalcDouble.dividir(15,0) << endl;
+    }catch(int e){
+        cout << "error " << e <<endl;
+    }
     cout << micalcDouble.multiplicar(5.36,8.98) << endl;
 
 

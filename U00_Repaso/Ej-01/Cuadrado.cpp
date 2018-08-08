@@ -1,5 +1,7 @@
 #include "Cuadrado.h"
+#include "Geometria.h"
 
-Cuadrado::Cuadrado() {
-
+float Cuadrado::getSuperficie() {
+    return Geometria::getAlto() * Geometria::getAncho();
 }
+
