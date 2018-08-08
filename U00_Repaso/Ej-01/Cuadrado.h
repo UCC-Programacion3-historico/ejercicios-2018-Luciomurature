@@ -2,8 +2,11 @@
 #define REPASO_CUADRADO_H
 
 
-class Cuadrado {
-
+class Cuadrado: protected Geometria {
+    public:
+        Cuadrado();
+        Cuadrado(float, float);
+        float getDiagonal();
 };
 
 
