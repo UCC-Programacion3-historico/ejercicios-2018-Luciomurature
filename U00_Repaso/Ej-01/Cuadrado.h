@@ -6,7 +6,7 @@ class Cuadrado: public Geometria {
     public:
         float getDiagonal();
         float getSuperficie();
-        float getDiagonal();
+        float getPerimetro();
 };
 
 
