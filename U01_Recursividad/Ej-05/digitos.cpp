@@ -25,7 +25,6 @@ void escribir_espaciado(unsigned int num) {
     int var;
     if(num < 10){
         std::cout << num << "  ";
-        return;
     }
     else{
         var = resto(num, 10);
