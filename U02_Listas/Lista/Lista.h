@@ -86,7 +86,7 @@ template<class T>
 int Lista<T>::getTamanio() {
     //recorrer hasta llegar a null
     int cant = 0;
-    Nodo<T> aux = inicio; //creo nodo auxiliar igual al inicio.
+    Nodo<T> *aux = inicio; //creo nodo auxiliar igual al inicio.
     //recorro mientras aux no sea el puntero nulo, cambiando aux al siguiente cada vuelta.
     while(aux != nullptr){
         cant++;
@@ -195,14 +195,17 @@ void Lista<T>::remover(unsigned int pos) {
         throw 1;
     }
     if(pos == 0){ //si elimino el primer nodo
-        inicio = nullptr;
+        inicio = inicio->getNext();
         delete aux;
     }else{
         /*aux->setNext(aux->getNext()->getNext()) //aux get next es siguiente, entonces necesito el siguiente. seria el siguiente del siguiente
         delete aux->getNext();
         aux->setNext(nullptr);*/
         Nodo<T> *siguiente = aux->getNext();
-        if(siguiente != nullptr){
+        if(siguiente == nullptr){
+           throw 2;
+        }
+        else{
             aux->setNext(siguiente->getNext());
             delete siguiente;
         }
