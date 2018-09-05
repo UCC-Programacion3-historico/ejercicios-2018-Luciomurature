@@ -10,14 +10,14 @@ char inverso(char p){
         return '(';
     if(p == ']')
         return '[';
-    else throw 1;
+    else
+        return 'a';
 }
 
 int main() {
     string ecuacion = "{(4*8+(3+5))*[4+5]}";
-    long n = ecuacion.length();
     Pila<char> lucio;
-    for(int i = 0 ; i < n ; i++){
+    for(int i = 0 ; i < ecuacion.length() ; i++){
         if(ecuacion[i] == '{' || ecuacion[i] == '(' || ecuacion[i] == '['){
             lucio.push(ecuacion[i]);
         }
@@ -27,7 +27,7 @@ int main() {
             }
         }
     }
-    cout << "la ecuacion esta bien escrita ? "<< lucio.esVacia() << endl;
+    cout << "la ecuacion esta bien escrita: "<< lucio.esVacia() << endl;
 
     return 0;
 }
