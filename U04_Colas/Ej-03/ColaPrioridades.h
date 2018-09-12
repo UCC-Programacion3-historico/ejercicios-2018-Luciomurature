@@ -7,15 +7,19 @@
  * almacenar cualquier tipo de dato T
  * @tparam T cualquier tipo de dato
  */
+
+#define CANTP 10
+
+
 template<class T>
 class ColaPrioridades {
 private:
-    Nodo<T> *entrada;
+    Nodo<T> *entrada[CANTP];
     Nodo<T> *salida;
 public:
     ColaPrioridades();
 
-    ~ColaPrioridades();
+    ~ColaPrioridades()();
 
     void encolar(T dato);
 
@@ -31,7 +35,10 @@ public:
  */
 template<class T>
 ColaPrioridades<T>::ColaPrioridades() {
-    entrada = nullptr;
+    for(int i = 0 ; i < CANTP ; i++){
+        entrada[i] = nullptr;
+    }
+
     salida = nullptr;
 }
 
@@ -42,6 +49,7 @@ ColaPrioridades<T>::ColaPrioridades() {
  * @tparam T
  */
 template<class T>
+
 ColaPrioridades<T>::~ColaPrioridades() {}
 
 
@@ -51,13 +59,17 @@ ColaPrioridades<T>::~ColaPrioridades() {}
  * @param dato  dato a insertar
  */
 template<class T>
-void ColaPrioridades<T>::encolar(T dato) {
-    auto *nuevo = new Nodo<T>(dato, nullptr); //hago un nuevo nodo con el dato que apunte a null prque va al ultimo
-    if(entrada != nullptr)
-        entrada->setNext(nuevo); // entrada apunta al nodo nuevo
-    else
-        salida = nuevo;
-    entrada = nuevo; // nuevo ahora es entrada
+void ColaPrioridades<T>::encolar(T dato, int p) {
+    auto *nuevo = new Nodo<T>(dato, p);//hago un nuevo nodo con el dato que apunte a null prque va al ultimo
+    if(entrada[p] != nullptr){
+        nuevo->setNext(entrada[p]->getNext());
+        entrada[p]->setNext(nuevo); // entrada apunta al nodo nuevo
+    }
+   for(int i = p+1; i < CANTP; i++){
+       if(entrada[p] == entrada[i])
+        entrada[i] = nuevo;
+   }
+   entrada[p] = nuevo;
 }
 
 
