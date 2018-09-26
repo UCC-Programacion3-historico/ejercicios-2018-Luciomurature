@@ -2,11 +2,12 @@
 #define HASHMAP_H
 
 #include "NodoArbol.h"
+#include "Nodo.h"
 
 template<class T>
 class ArbolBinario {
 private:
-
+    Nodo *raiz;
 public:
     ArbolBinario();
 
@@ -27,6 +28,26 @@ public:
     bool esVacio();
 
     void print();
+
+private:
+
+    void put(T dato, NodoArbol<T> *r);
+
+    T search(T dato, NodoArbol<T> *r);
+
+    NodoArbol<T> *remove(T dato, NodoArbol<T> *r);
+
+    void preorder(NodoArbol<T> *r);
+
+    void inorder(NodoArbol<T> *r);
+
+    void postorder(NodoArbol<T> *r);
+
+    ~ArbolBinario();
+
+    bool esVacio(NodoArbol<T> *r);
+
+    void print(NodoArbol<T> *r);
 
 };
 
@@ -59,8 +80,22 @@ ArbolBinario<T>::~ArbolBinario() {
  */
 template<class T>
 T ArbolBinario<T>::search(T dato) {
-    T temp;
-    return temp;
+    return search(dato, raiz); // llamada recursiva
+}
+
+template<class T>
+T ArbolBinario<T>::search(T dato, NodoArbol<T> *r) {
+
+    if(r == nullptr)
+        throw 404;
+
+    if(dato == r->getDato()){
+        return r->getDato();
+    }
+    if(dato > r->getDato()){
+        return search(dato, r->getDer());
+    } else
+        return search(dato, r->getIzq());
 }
 
 
@@ -71,7 +106,39 @@ T ArbolBinario<T>::search(T dato) {
  */
 template<class T>
 void ArbolBinario<T>::put(T dato) {
+    if(raiz != nullptr)
+        put(dato, raiz); // llamada recursiva
+    else{
+        raiz = NodoArbol<T>(dato);
+    }
 
+}
+
+
+template<class T>
+void ArbolBinario<T>::put(T dato, NodoArbol<T> *r) {
+
+
+    T miDato = r->getDato();
+    if(dato == miDato)
+        throw 200;
+
+
+    if(dato > miDato){
+        if(r->getDer() != nullptr)
+            put(dato, r->getDer());
+        else{
+            auto nuevo = new Nodo<T>(dato);
+            r->setDer(nuevo);
+        }
+    } else{
+        if(r->getIzq() != nullptr)
+            put(dato, r->getIzq());
+        else{
+            auto nuevo = new Nodo<T>(dato);
+            r->setIzq(nuevo);
+        }
+    }
 }
 
 
@@ -81,7 +148,30 @@ void ArbolBinario<T>::put(T dato) {
  */
 template<class T>
 void ArbolBinario<T>::remove(T dato) {
+    return remove(dato, raiz); // llamada recursiva
+}
 
+
+template<class T>
+NodoArbol<T> *ArbolBinario<T>::remove(T dato, NodoArbol<T> *r) {
+    if(r == nullptr)
+        throw 404;
+
+    if(dato == r->getDato()){
+        r->setDer(remove(dato, r->getDato()));
+    }
+    if(dato > r->getDato()){
+        r->setIzq(remove(dato, r->getDer()));
+    } else
+        remove(dato, r->getIzq());
+    if(r->getIzq() != nullptr)
+        put(r->getIzq(), r->getDer());
+
+    NodoArbol<T> *aux = r->getDer();
+    delete r;
+
+
+    return aux;
 }
 
 
@@ -91,7 +181,7 @@ void ArbolBinario<T>::remove(T dato) {
  */
 template<class T>
 bool ArbolBinario<T>::esVacio() {
-    return false;
+    return raiz == nullptr;
 }
 
 
@@ -100,7 +190,7 @@ bool ArbolBinario<T>::esVacio() {
  */
 template<class T>
 void ArbolBinario<T>::preorder() {
-
+    return preorder(raiz); // llamada recursiva
 }
 
 
@@ -109,7 +199,7 @@ void ArbolBinario<T>::preorder() {
  */
 template<class T>
 void ArbolBinario<T>::inorder() {
-
+    return inorder(raiz); // llamada recursiva
 }
 
 
@@ -118,7 +208,7 @@ void ArbolBinario<T>::inorder() {
  */
 template<class T>
 void ArbolBinario<T>::postorder() {
-
+    return postorder(raiz); // llamada recursiva
 }
 
 
